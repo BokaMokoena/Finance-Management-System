@@ -4,10 +4,17 @@
 
 ## Project Overview
 
-**Project Title**: ZakaWise — Personal Finance Management System
-**Domain**: FinTech (Financial Technology)
-**Problem Statement**: Many people lack financial management discipline, literacy, and skills. Their finances are spread across different accounts making real-time tracking difficult, they overspend without budget awareness, and they make poor financial decisions without guidance. ZakaWise solves these issues in one unified platform where users can plan, track, and improve their finance management.
-**Individual Scope**: Single developer, one semester (~14 weeks). Stack: React (frontend), Java Spring Boot (REST API), PostgreSQL (database), Firebase Authentication (identity). Deployed on Render.
+**Project Title**
+ZakaWise — Personal Finance Management System
+
+**Domain**
+FinTech (Financial Technology)
+
+**Problem Statement**
+Many people lack financial management discipline, literacy, and skills. Their finances are spread across different accounts making real-time tracking difficult, they overspend without budget awareness, and they make poor financial decisions without guidance. ZakaWise solves these issues in one unified platform where users can plan, track, and improve their finance management.
+
+**Individual Scope**
+Single developer, one semester (~14 weeks). Stack: React (frontend), Java Spring Boot (REST API), PostgreSQL (database), Firebase Authentication (identity). Deployed on Render.
 
 ---
 
