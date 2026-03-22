@@ -5,4 +5,8 @@ ZakaWise is a full-stack personal finance management web application that allow 
 
 - [System Specification](Specification.md)
 - [System Architecture](Architecture.md)
+- [System Stakeholder](Stakeholders.md)
+- [System System Requirements](System Requirements.md)
+- [System Reflection](Reflection.md)
+
 
