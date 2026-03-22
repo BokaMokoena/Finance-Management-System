@@ -113,8 +113,8 @@ The system shall verify Firebase tokens on all requests.
 - Firebase will generate the token and Springboot will verify it
 
 ### Performance
-- API ≤2s response
-- Dashboard ≤3s load
+- API ≤2s response to reach fast API responses
+- Dashboard ≤3s load as we aim for fast dashboard load
 
 ---
 
