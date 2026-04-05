@@ -9,7 +9,8 @@ ZakaWise is a full-stack personal finance management web application that allow 
 - [System SystemRequirements](SystemRequirements.md)
 - [System Test cases](TestCases.md)
 - [System Use case](UseCaseZakaWise.png)
-- [System Reflection](Reflection.md)
 - [System Use case specifications](UseCaseSpecifications.md)
-
-
+- [System Use Stories](UserStories.md)
+- [System Sprint planning](SprintPlanning.md)
+- [System Backlog planning](Backlog.md)
+- [System Reflection](Reflection.md)
