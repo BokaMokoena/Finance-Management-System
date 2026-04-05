@@ -11,4 +11,4 @@
 | US-009   | As a user, I want notifications so that I stay informed about updates and analytics.                       | Notifications triggered correctly                        | Low      |
 | US-010   | As a user, I want to view a financial dashboard so that I can understand my finances visually.             | Loads ≤3 seconds; accurate data                          | High     |
 | US-011   | As an analytics generator, I want to generate dashboards from transactions so that users can see insights. | Charts generated from data                               | High     |
-
+| US-012   | As a database, I want to securely store user data and update it immediately when updates are made. | Store and update transaction on the database                              | High     |
