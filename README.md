@@ -27,3 +27,6 @@ Automation was used to move tasks between "To Do", "In Progress", and "Done", im
 - [System Sprint planning](SprintPlanning.md)
 - [System Backlog planning](Backlog.md)
 - [System Reflection](Reflection.md)
+- [System State diagram](StateDiagram.md)
+- [System Activity diagram](ActivityDiagram.md)
+- [System Traceability](Traceability.md)
