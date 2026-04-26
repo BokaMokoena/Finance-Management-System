@@ -30,3 +30,5 @@ Automation was used to move tasks between "To Do", "In Progress", and "Done", im
 - [System State diagram](StateDiagram.md)
 - [System Activity diagram](ActivityDiagram.md)
 - [System Traceability](Traceability.md)
+- [System Domain model](DomainModel.md)
+- [System Class diagram](ClassDiagram.md)
