@@ -63,3 +63,20 @@ Creating activity diagrams was particularly useful in visualizing workflows. It 
 Comparing state diagrams and activity diagrams also improved my understanding of their different purposes. State diagrams focus on the lifecycle of an object, showing how it transitions between different states over time. For example, a transaction moves from created to validated to stored. In contrast, activity diagrams focus on processes and workflows, showing the sequence of actions required to complete a task. Both are important, but they provide different perspectives on the system.
 
 Overall, this assignment strengthened my ability to model system behavior and improved my understanding of how different system components interact. It also reinforced the importance of aligning design models with requirements and user stories to ensure consistency and completeness. These skills are essential for designing scalable and maintainable systems like ZakaWise.
+
+
+---
+
+## Reflection - Asignment 9
+
+Designing the domain model and class diagram for the ZakaWise system was one of the most challenging and important stages of the development process. This assignment required translating all previous work, including requirements, use cases, Agile planning, and behavioral diagrams, into a structured object-oriented design.
+
+One of the main challenges I faced was identifying the correct level of abstraction for the domain entities. Initially, it was difficult to decide how many entities were needed and how detailed they should be. For example, I had to determine whether the dashboard should be treated as a separate entity or simply as a function of transactions. I decided to model it as a class because it has clear responsibilities such as generating reports and aggregating financial data.
+
+Another challenge was defining relationships between entities. Understanding when to use association instead of composition required careful thinking. For example, a user “owns” transactions, budgets, and savings goals, but these entities can exist independently in the database. Therefore, I modeled these relationships as associations rather than composition. Additionally, linking transactions to budgets required careful consideration because not all transactions affect a budget, only expense transactions do.
+
+Defining methods for each class was also challenging. Since this is a domain model, the focus is more on responsibilities rather than implementation. I had to ensure that each method reflects real system behavior, such as create(), update(), and delete() for transactions, and generateReport() for the dashboard. This helped ensure that the design aligns with actual system operations.
+
+There were key decisions to be made on the design. One key decision was simplifying inheritance. Although it would be possible to create a base class such as “FinancialRecord” for transactions and budgets, I decided not to include it to keep the design simple and easy to understand. Another key decision was modeling the Database as a class, which is not always done in UML, but I included it to clearly represent data persistence in the system.
+
+Overall, this assignment improved my understanding of object-oriented design and how to translate requirements into a structured system model. It highlighted the importance of relationships, responsibilities, and abstraction in building scalable systems. The process also emphasised how earlier stages of software development, such as requirements and use cases, directly influence system design. This experience will be valuable in developing real-world applications like ZakaWise.
