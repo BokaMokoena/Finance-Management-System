@@ -14,6 +14,37 @@ The board includes user stories and sprint tasks from Assignment 6, allowing ful
 
 Automation was used to move tasks between "To Do", "In Progress", and "Done", improving workflow efficiency and reducing manual updates.
 
+## Assignment 10
+
+The system follows a layered architecture:
+- Controller Layer (REST API endpoints)
+- Service Layer (business logic)
+- Repository Layer (data access using Spring Data JPA)
+- Model Layer (entities representing database tables)
+- Creational Patterns Layer (object creation logic/design patterns)
+
+## Design patterns used:
+- Singleton pattern was used for DatabaseConnection to ensure only one instance of the database connection exists throughout the application lifecycle. This improves performance and prevents multiple unnecessary connections.
+- Factory pattern was used in NotificationFactory and other object creation utilities to centralize object creation logic and reduce duplication in service classes.
+- Builder pattern was Used for User, Budget, Transaction, SavingsGoal, and Notification objects because these entities contain multiple fields, some fields are optional, improves readability and maintainability prevents regeneration of constructors
+
+## Technologies used
+
+- Java 17+
+- Spring Boot
+- Spring Data JPA
+- Hibernate
+- JUnit 5
+- Mockito
+- Maven
+- 
+## Key decisions
+
+- Builder Pattern was chosen for complex entity creation.
+- Service layer handles business logic only (no direct repository logic in controllers).
+- Repository layer abstracts database operations.
+- Mockito was avoided in final testing to demonstrate manual unit testing using JUnit and in-memory fakes.
+
 ## Project Documents
 
 - [System Specification](Specification.md)
@@ -32,3 +63,4 @@ Automation was used to move tasks between "To Do", "In Progress", and "Done", im
 - [System Traceability](Traceability.md)
 - [System Domain model](DomainModel.md)
 - [System Class diagram](ClassDiagram.md)
+
