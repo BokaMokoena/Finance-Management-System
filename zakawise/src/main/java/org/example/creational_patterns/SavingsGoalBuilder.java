@@ -29,9 +29,26 @@ public class SavingsGoalBuilder {
         return this;
     }
 
+    public SavingsGoalBuilder setCurrentAmount(Double amount) {
+        g.setCurrentAmount(amount);
+        return this;
+    }
+
+    public SavingsGoalBuilder setStatus(String status) {
+        g.setStatus(status);
+        return this;
+    }
+
     public SavingsGoal build() {
-        g.setCurrentAmount(0.0);
-        g.setStatus("IN_PROGRESS");
+
+        if (g.getCurrentAmount() == null) {
+            g.setCurrentAmount(0.0);
+        }
+
+        if (g.getStatus() == null) {
+            g.setStatus("IN_PROGRESS");
+        }
+
         return g;
     }
 }

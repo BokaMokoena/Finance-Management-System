@@ -18,36 +18,53 @@ public class SavingsGoalService {
         this.repo = repo;
     }
 
-    public SavingsGoal create(User user, String title, Double target, LocalDate date) {
+    public SavingsGoal create(User user,
+                              String title,
+                              Double target,
+                              LocalDate date) {
 
-        SavingsGoal g = new SavingsGoalBuilder()
-                .setUser(user)
-                .setTitle(title)
-                .setTargetAmount(target)
-                .setTargetDate(date)
-                .build();
+        SavingsGoal goal =
+                new SavingsGoalBuilder()
+                        .setUser(user)
+                        .setTitle(title)
+                        .setTargetAmount(target)
+                        .setCurrentAmount(0.0)
+                        .setTargetDate(date)
+                        .setStatus("IN_PROGRESS")
+                        .build();
 
-        return repo.save(g);
+        repo.save(goal);
+
+        return goal;
     }
 
     public SavingsGoal addProgress(Long id, Double amount) {
 
-        SavingsGoal g = repo.findById(id).orElseThrow(
-                () -> new RuntimeException("Goal not found")
-        );
+        SavingsGoal goal = repo.findById(id)
+                .orElseThrow(() ->
+                        new RuntimeException("Goal not found"));
 
-        g.setCurrentAmount(
-                (g.getCurrentAmount() == null ? 0 : g.getCurrentAmount()) + amount
-        );
+        double current =
+                goal.getCurrentAmount() == null
+                        ? 0
+                        : goal.getCurrentAmount();
 
-        if (g.getCurrentAmount() >= g.getTargetAmount()) {
-            g.setStatus("ACHIEVED");
+        goal.setCurrentAmount(current + amount);
+
+        if (goal.getCurrentAmount() >= goal.getTargetAmount()) {
+            goal.setStatus("ACHIEVED");
         }
 
-        return repo.save(g);
+        repo.save(goal);
+
+        return goal;
     }
 
-    public List<SavingsGoal> getUserGoals(String userId) {
-        return repo.findByUserUserId(userId);
+    public List<SavingsGoal> getAll() {
+        return repo.findAll();
+    }
+
+    public void delete(Long id) {
+        repo.delete(id);
     }
 }

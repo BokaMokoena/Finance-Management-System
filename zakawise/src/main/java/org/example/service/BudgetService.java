@@ -17,46 +17,65 @@ public class BudgetService {
 
     public BudgetService(BudgetRepository repo,
                          NotificationService notificationService) {
+
         this.repo = repo;
         this.notificationService = notificationService;
     }
 
-    public Budget create(User user, String name, Double limit) {
+    public Budget create(User user,
+                         String name,
+                         Double limit) {
 
-        Budget b = new BudgetBuilder()
-                .setUser(user)
-                .setName(name)
-                .setLimit(limit)
-                .build();
+        Budget budget =
+                new BudgetBuilder()
+                        .setUser(user)
+                        .setName(name)
+                        .setLimit(limit)
+                        .setCurrentSpend(0.0)
+                        .build();
 
-        return repo.save(b);
+        repo.save(budget);
+
+        return budget;
     }
 
-    public List<Budget> getUserBudgets(User user) {
-        return repo.findByUser(user);
+    public List<Budget> getAll() {
+        return repo.findAll();
     }
 
     public Budget updateLimit(Long id, Double limit) {
 
-        Budget b = repo.findById(id).orElseThrow(
-                () -> new RuntimeException("Budget not found")
-        );
+        Budget budget = repo.findById(id)
+                .orElseThrow(() ->
+                        new RuntimeException("Budget not found"));
 
-        b.setLimitAmount(limit);
-        return repo.save(b);
+        budget.setLimitAmount(limit);
+
+        repo.save(budget);
+
+        return budget;
     }
 
-    public void applyExpense(Transaction t) {
+    public void applyExpense(Transaction transaction) {
 
-        repo.findByNameAndUser(t.getDescription(), t.getUser())
+        repo.findByNameAndUser(
+                        transaction.getDescription(),
+                        transaction.getUser()
+                )
                 .ifPresent(budget -> {
 
-                    double newSpend = (budget.getLimitAmount() != null ? budget.getLimitAmount() : 0)
-                            + t.getAmount();
+                    double current =
+                            budget.getCurrentSpend() == null
+                                    ? 0
+                                    : budget.getCurrentSpend();
 
-                    budget.setLimitAmount(newSpend);
+                    double updatedSpend =
+                            current + transaction.getAmount();
 
-                    if (newSpend >= budget.getLimitAmount()) {
+                    budget.setCurrentSpend(updatedSpend);
+
+                    if (updatedSpend >= budget.getLimitAmount()) {
+
                         notificationService.send(
                                 budget.getUser(),
                                 "Budget limit exceeded!"
@@ -65,5 +84,9 @@ public class BudgetService {
 
                     repo.save(budget);
                 });
+    }
+
+    public void delete(Long id) {
+        repo.delete(id);
     }
 }

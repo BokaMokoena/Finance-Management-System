@@ -17,16 +17,28 @@ public class TransactionService {
         this.repo = repo;
     }
 
-    public Transaction create(User user, String description, Double amount, String type) {
+    public Transaction create(User user,
+                              String description,
+                              Double amount,
+                              String type) {
 
-        Transaction t = new TransactionBuilder()
-                .setUser(user)
-                .setDescription(description)
-                .setAmount(amount)
-                .setType(type)
-                .build();
+        Transaction transaction =
+                new TransactionBuilder()
+                        .setUser(user)
+                        .setDescription(description)
+                        .setAmount(amount)
+                        .setType(type)
+                        .build();
 
-        return repo.save(t);
+        repo.save(transaction);
+
+        return transaction;
+    }
+
+    public Transaction get(Long id) {
+        return repo.findById(id)
+                .orElseThrow(() ->
+                        new RuntimeException("Transaction not found"));
     }
 
     public List<Transaction> getUserTransactions(String userId) {
@@ -35,21 +47,16 @@ public class TransactionService {
 
     public Transaction updateAmount(Long id, Double amount) {
 
-        Transaction t = repo.findById(id).orElseThrow(
-                () -> new RuntimeException("Transaction not found")
-        );
+        Transaction transaction = get(id);
 
-        t.setAmount(amount);
-        return repo.save(t);
+        transaction.setAmount(amount);
+
+        repo.save(transaction);
+
+        return transaction;
     }
 
-    public void softDelete(Long id) {
-
-        Transaction t = repo.findById(id).orElseThrow(
-                () -> new RuntimeException("Transaction not found")
-        );
-
-        t.setDeleted(true);
-        repo.save(t);
+    public void delete(Long id) {
+        repo.delete(id);
     }
 }

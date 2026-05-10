@@ -14,7 +14,11 @@ public class UserService {
         this.repo = repo;
     }
 
-    public User create(String id, String name, String email, Double salary, String occupation) {
+    public User create(String id,
+                       String name,
+                       String email,
+                       Double salary,
+                       String occupation) {
 
         User user = new UserBuilder()
                 .setUserId(id)
@@ -24,21 +28,31 @@ public class UserService {
                 .setOccupation(occupation)
                 .build();
 
-        return repo.save(user);
+        repo.save(user);
+        return user;
     }
 
     public User get(String id) {
-        return repo.findById(id).orElseThrow();
+        return repo.findById(id)
+                .orElseThrow(() ->
+                        new RuntimeException("User not found"));
     }
 
     public User update(String id, User updated) {
-        User u = repo.findById(id).orElseThrow();
 
-        u.setName(updated.getName());
-        u.setEmail(updated.getEmail());
-        u.setSalary(updated.getSalary());
-        u.setOccupation(updated.getOccupation());
+        User user = get(id);
 
-        return repo.save(u);
+        user.setName(updated.getName());
+        user.setEmail(updated.getEmail());
+        user.setSalary(updated.getSalary());
+        user.setOccupation(updated.getOccupation());
+
+        repo.save(user);
+
+        return user;
+    }
+
+    public void delete(String id) {
+        repo.delete(id);
     }
 }

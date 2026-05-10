@@ -5,7 +5,8 @@ import org.example.model.User;
 import org.example.repository.NotificationRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.*;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
@@ -25,38 +26,37 @@ class NotificationServiceTest {
 
     @Test
     void send() {
+
         User user = new User();
         user.setUserId("1");
-
-        Notification n = new Notification();
-
-        when(repo.save(any())).thenReturn(n);
 
         Notification result = service.send(user, "Hello");
 
         assertNotNull(result);
-        verify(repo).save(any());
+        verify(repo).save(any(Notification.class));
     }
 
     @Test
     void getUserNotifications() {
+
         when(repo.findByUserUserId("1"))
                 .thenReturn(List.of(new Notification()));
 
-        List<Notification> result = service.getUserNotifications("1");
+        List<Notification> result = service.getAll();
 
-        assertFalse(result.isEmpty());
+        assertEquals(1, result.size());
     }
 
     @Test
     void markRead() {
+
         Notification n = new Notification();
 
         when(repo.findById("1")).thenReturn(Optional.of(n));
-        when(repo.save(any())).thenReturn(n);
 
         Notification result = service.markRead("1");
 
         assertEquals("READ", result.getStatus());
+        verify(repo).save(n);
     }
 }

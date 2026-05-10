@@ -25,9 +25,21 @@ public class NotificationBuilder {
         return this;
     }
 
+    public NotificationBuilder setDate(Date date) {
+        n.setDate(date);
+        return this;
+    }
+
     public Notification build() {
-        n.setNotificationId(UUID.randomUUID().toString());
-        n.setDate(new Date());
+
+        if (n.getNotificationId() == null) {
+            n.setNotificationId(UUID.randomUUID().toString());
+        }
+
+        if (n.getDate() == null) {
+            n.setDate(new Date());
+        }
+
         return n;
     }
 }

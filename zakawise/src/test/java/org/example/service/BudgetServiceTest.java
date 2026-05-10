@@ -6,7 +6,8 @@ import org.example.model.User;
 import org.example.repository.BudgetRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.*;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
@@ -32,26 +33,25 @@ class BudgetServiceTest {
 
         User user = new User();
 
-        Budget b = new Budget();
-        b.setName("Food");
-
-        when(repo.save(any())).thenReturn(b);
-
         Budget result = service.create(user, "Food", 1000.0);
 
         assertNotNull(result);
+        assertEquals("Food", result.getName());
+
         verify(repo).save(any(Budget.class));
     }
 
     @Test
-    void getUserBudgets() {
+    void getAll() {
 
-        when(repo.findByUser(any()))
+        when(repo.findAll())
                 .thenReturn(List.of(new Budget()));
 
-        List<Budget> result = service.getUserBudgets(new User());
+        List<Budget> result = service.getAll();
 
         assertEquals(1, result.size());
+
+        verify(repo).findAll();
     }
 
     @Test
@@ -60,11 +60,12 @@ class BudgetServiceTest {
         Budget b = new Budget();
 
         when(repo.findById(1L)).thenReturn(Optional.of(b));
-        when(repo.save(any())).thenReturn(b);
 
         Budget result = service.updateLimit(1L, 2000.0);
 
         assertEquals(2000.0, result.getLimitAmount());
+
+        verify(repo).save(b);
     }
 
     @Test
@@ -78,7 +79,7 @@ class BudgetServiceTest {
         b.setLimitAmount(500.0);
         b.setCurrentSpend(0.0);
 
-        when(repo.findByNameAndUser(any(), any()))
+        when(repo.findByNameAndUser(anyString(), any(User.class)))
                 .thenReturn(Optional.of(b));
 
         Transaction t = new Transaction();
@@ -89,6 +90,8 @@ class BudgetServiceTest {
         service.applyExpense(t);
 
         verify(notificationService, times(1))
-                .send(any(), any(String.class));
+                .send(any(User.class), anyString());
+
+        verify(repo).save(b);
     }
 }

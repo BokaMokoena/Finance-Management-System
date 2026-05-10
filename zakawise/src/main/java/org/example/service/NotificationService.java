@@ -6,6 +6,7 @@ import org.example.model.User;
 import org.example.repository.NotificationRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -19,26 +20,41 @@ public class NotificationService {
 
     public Notification send(User user, String message) {
 
-        Notification n = new NotificationBuilder()
-                .setUser(user)
-                .setMessage(message)
-                .setStatus("UNREAD")
-                .build();
+        Notification notification =
+                new NotificationBuilder()
+                        .setUser(user)
+                        .setMessage(message)
+                        .setStatus("UNREAD")
+                        .setDate(new Date())
+                        .build();
 
-        return repo.save(n);
+        repo.save(notification);
+
+        return notification;
     }
 
-    public List<Notification> getUserNotifications(String userId) {
-        return repo.findByUserUserId(userId);
+    public Notification get(String id) {
+        return repo.findById(id)
+                .orElseThrow(() ->
+                        new RuntimeException("Notification not found"));
+    }
+
+    public List<Notification> getAll() {
+        return repo.findAll();
     }
 
     public Notification markRead(String id) {
 
-        Notification n = repo.findById(id).orElseThrow(
-                () -> new RuntimeException("Notification not found")
-        );
+        Notification notification = get(id);
 
-        n.setStatus("READ");
-        return repo.save(n);
+        notification.setStatus("READ");
+
+        repo.save(notification);
+
+        return notification;
+    }
+
+    public void delete(String id) {
+        repo.delete(id);
     }
 }

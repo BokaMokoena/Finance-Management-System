@@ -4,7 +4,8 @@ import org.example.model.Transaction;
 import org.example.repository.TransactionRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.*;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
@@ -25,18 +26,18 @@ class DashboardServiceTest {
     @Test
     void getSummary() {
 
-        Transaction t1 = new Transaction();
-        t1.setType("INCOME");
-        t1.setAmount(1000.0);
+        Transaction income = new Transaction();
+        income.setType("INCOME");
+        income.setAmount(1000.0);
 
-        Transaction t2 = new Transaction();
-        t2.setType("EXPENSE");
-        t2.setAmount(300.0);
+        Transaction expense = new Transaction();
+        expense.setType("EXPENSE");
+        expense.setAmount(300.0);
 
         when(repo.findByUserUserIdAndDeletedFalse("1"))
-                .thenReturn(List.of(t1, t2));
+                .thenReturn(List.of(income, expense));
 
-        Map<String, Double> result = service.getSummary("1");
+        Map<String, Double> result = service.getSummary();
 
         assertEquals(1000.0, result.get("income"));
         assertEquals(300.0, result.get("expense"));

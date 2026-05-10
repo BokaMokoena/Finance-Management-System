@@ -17,10 +17,9 @@ public class DashboardService {
         this.repo = repo;
     }
 
-    public Map<String, Double> getSummary(String userId) {
+    public Map<String, Double> getSummary() {
 
-        List<Transaction> transactions =
-                repo.findByUserUserIdAndDeletedFalse(userId);
+        List<Transaction> transactions = repo.findAll();
 
         double income = 0;
         double expense = 0;
@@ -35,6 +34,7 @@ public class DashboardService {
         }
 
         Map<String, Double> result = new HashMap<>();
+
         result.put("income", income);
         result.put("expense", expense);
         result.put("balance", income - expense);

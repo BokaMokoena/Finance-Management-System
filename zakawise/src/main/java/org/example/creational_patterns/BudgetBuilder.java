@@ -22,7 +22,17 @@ public class BudgetBuilder {
         return this;
     }
 
+    public BudgetBuilder setCurrentSpend(Double spend) {
+        b.setCurrentSpend(spend);
+        return this;
+    }
+
     public Budget build() {
+
+        if (b.getCurrentSpend() == null) {
+            b.setCurrentSpend(0.0);
+        }
+
         return b;
     }
 }
