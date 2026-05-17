@@ -162,4 +162,5 @@ All notable changes to this project are documented here.
 - Complete Swagger/OpenAPI documentation coverage
 - CHANGELOG.md added for documentation and version tracking
 - Consistent API error handling behavior across all endpoints
+- Link to closed issues https://github.com/BokaMokoena/Finance-Management-System/issues?q=is%3Aissue%20state%3Aclosed
 
