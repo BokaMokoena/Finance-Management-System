@@ -39,7 +39,7 @@ public class BudgetService {
         return budget;
     }
 
-    public List<Budget> getAll() {
+    public List<Budget> getUserBudgets() {
         return repo.findAll();
     }
 
