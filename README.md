@@ -45,6 +45,17 @@ The system follows a layered architecture:
 - Repository layer abstracts database operations.
 - Mockito was avoided in final testing to demonstrate manual unit testing using JUnit and in-memory fakes.
 
+## Assignment 11
+## Design Choice: Dependency Injection (DI)
+
+I selected Dependency Injection (DI) as the primary pattern for managing repository dependencies in the service layer.
+
+ Reasons:
+- Services do not depend on concrete repository implementations.
+- Enables easy unit testing using mock or in-memory repositories.
+- Spring Boot manages the instantiation of repository beans and injects them into services
+- Repositories can be swapped without changing service code.
+
 ## Project Documents
 
 - [System Specification](Specification.md)
