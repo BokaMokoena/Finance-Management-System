@@ -45,9 +45,13 @@ public class BudgetService {
 
     public Budget updateLimit(Long id, Double limit) {
 
+        if (limit == null || limit <= 0) {
+            throw new IllegalArgumentException("Limit must be greater than 0");
+        }
+
         Budget budget = repo.findById(id)
                 .orElseThrow(() ->
-                        new RuntimeException("Budget not found"));
+                        new RuntimeException("Budget not found with id: " + id));
 
         budget.setLimitAmount(limit);
 
@@ -65,9 +69,7 @@ public class BudgetService {
                 .ifPresent(budget -> {
 
                     double current =
-                            budget.getCurrentSpend() == null
-                                    ? 0
-                                    : budget.getCurrentSpend();
+                            budget.getCurrentSpend() == null ? 0 : budget.getCurrentSpend();
 
                     double updatedSpend =
                             current + transaction.getAmount();
@@ -87,6 +89,11 @@ public class BudgetService {
     }
 
     public void delete(Long id) {
+
+        if (!repo.findById(id).isPresent()) {
+            throw new RuntimeException("Budget not found with id: " + id);
+        }
+
         repo.delete(id);
     }
 }

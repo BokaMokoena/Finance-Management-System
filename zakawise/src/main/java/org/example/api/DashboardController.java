@@ -5,8 +5,12 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @RestController
 @RequestMapping("/api/dashboard")
+@Tag(name = "Dashboard", description = "Financial summary APIs")
 public class DashboardController {
 
     private final DashboardService service;
@@ -16,9 +20,8 @@ public class DashboardController {
     }
 
     @GetMapping("/{userId}")
-    public Map<String, Double> getSummary(
-            @PathVariable String userId) {
-
+    @Operation(summary = "Get dashboard summary")
+    public Map<String, Double> getSummary(@PathVariable String userId) {
         return service.getSummary();
     }
 }

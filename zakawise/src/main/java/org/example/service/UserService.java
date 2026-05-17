@@ -33,14 +33,17 @@ public class UserService {
     }
 
     public User get(String id) {
+
         return repo.findById(id)
                 .orElseThrow(() ->
-                        new RuntimeException("User not found"));
+                        new RuntimeException("User not found with id: " + id));
     }
 
     public User update(String id, User updated) {
 
-        User user = get(id);
+        User user = repo.findById(id)
+                .orElseThrow(() ->
+                        new RuntimeException("User not found with id: " + id));
 
         user.setName(updated.getName());
         user.setEmail(updated.getEmail());
@@ -53,6 +56,11 @@ public class UserService {
     }
 
     public void delete(String id) {
+
+        if (!repo.findById(id).isPresent()) {
+            throw new RuntimeException("User not found with id: " + id);
+        }
+
         repo.delete(id);
     }
 }

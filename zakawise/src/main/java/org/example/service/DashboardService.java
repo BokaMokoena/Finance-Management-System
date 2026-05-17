@@ -21,6 +21,10 @@ public class DashboardService {
 
         List<Transaction> transactions = repo.findAll();
 
+        if (transactions.isEmpty()) {
+            throw new RuntimeException("No transactions found for dashboard");
+        }
+
         double income = 0;
         double expense = 0;
 
@@ -34,7 +38,6 @@ public class DashboardService {
         }
 
         Map<String, Double> result = new HashMap<>();
-
         result.put("income", income);
         result.put("expense", expense);
         result.put("balance", income - expense);

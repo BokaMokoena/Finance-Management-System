@@ -34,18 +34,25 @@ public class NotificationService {
     }
 
     public Notification get(String id) {
+
         return repo.findById(id)
                 .orElseThrow(() ->
-                        new RuntimeException("Notification not found"));
+                        new RuntimeException("Notification not found with id: " + id));
     }
 
     public List<Notification> getAll() {
         return repo.findAll();
     }
 
+    public List<Notification> getAllByUser(String userId) {
+        return repo.findByUserUserId(userId);
+    }
+
     public Notification markRead(String id) {
 
-        Notification notification = get(id);
+        Notification notification = repo.findById(id)
+                .orElseThrow(() ->
+                        new RuntimeException("Notification not found with id: " + id));
 
         notification.setStatus("READ");
 
@@ -55,6 +62,11 @@ public class NotificationService {
     }
 
     public void delete(String id) {
+
+        if (!repo.findById(id).isPresent()) {
+            throw new RuntimeException("Notification not found with id: " + id);
+        }
+
         repo.delete(id);
     }
 }

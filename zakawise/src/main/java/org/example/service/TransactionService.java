@@ -36,18 +36,26 @@ public class TransactionService {
     }
 
     public Transaction get(Long id) {
+
         return repo.findById(id)
                 .orElseThrow(() ->
-                        new RuntimeException("Transaction not found"));
+                        new RuntimeException("Transaction not found with id: " + id));
     }
 
     public List<Transaction> getUserTransactions(String userId) {
+
         return repo.findByUserUserIdAndDeletedFalse(userId);
     }
 
     public Transaction updateAmount(Long id, Double amount) {
 
-        Transaction transaction = get(id);
+        if (amount == null || amount <= 0) {
+            throw new IllegalArgumentException("Amount must be greater than 0");
+        }
+
+        Transaction transaction = repo.findById(id)
+                .orElseThrow(() ->
+                        new RuntimeException("Transaction not found with id: " + id));
 
         transaction.setAmount(amount);
 
@@ -57,6 +65,11 @@ public class TransactionService {
     }
 
     public void delete(Long id) {
+
+        if (!repo.findById(id).isPresent()) {
+            throw new RuntimeException("Transaction not found with id: " + id);
+        }
+
         repo.delete(id);
     }
 }

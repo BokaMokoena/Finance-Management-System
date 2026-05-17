@@ -40,14 +40,16 @@ public class SavingsGoalService {
 
     public SavingsGoal addProgress(Long id, Double amount) {
 
+        if (amount == null || amount <= 0) {
+            throw new IllegalArgumentException("Progress amount must be greater than 0");
+        }
+
         SavingsGoal goal = repo.findById(id)
                 .orElseThrow(() ->
-                        new RuntimeException("Goal not found"));
+                        new RuntimeException("Savings goal not found with id: " + id));
 
         double current =
-                goal.getCurrentAmount() == null
-                        ? 0
-                        : goal.getCurrentAmount();
+                goal.getCurrentAmount() == null ? 0 : goal.getCurrentAmount();
 
         goal.setCurrentAmount(current + amount);
 
@@ -65,6 +67,11 @@ public class SavingsGoalService {
     }
 
     public void delete(Long id) {
+
+        if (!repo.findById(id).isPresent()) {
+            throw new RuntimeException("Savings goal not found with id: " + id);
+        }
+
         repo.delete(id);
     }
 }
