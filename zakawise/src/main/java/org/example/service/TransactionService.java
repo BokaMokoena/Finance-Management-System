@@ -66,10 +66,12 @@ public class TransactionService {
 
     public void delete(Long id) {
 
-        if (!repo.findById(id).isPresent()) {
-            throw new RuntimeException("Transaction not found with id: " + id);
-        }
+        Transaction transaction = repo.findById(id)
+                .orElseThrow(() ->
+                        new RuntimeException("Transaction not found with id: " + id));
 
-        repo.delete(id);
+        transaction.setDeleted(true);
+
+        repo.save(transaction);
     }
 }
