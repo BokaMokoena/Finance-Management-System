@@ -22,6 +22,6 @@ public class DashboardController {
     @GetMapping("/{userId}")
     @Operation(summary = "Get dashboard summary")
     public Map<String, Double> getSummary(@PathVariable String userId) {
-        return service.getSummary();
+        return service.getSummary(userId);
     }
 }
