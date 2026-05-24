@@ -88,6 +88,10 @@ public class BudgetService {
                 });
     }
 
+    public List<Budget> getAll() {
+        return repo.findAll();
+    }
+
     public void delete(Long id) {
 
         if (!repo.findById(id).isPresent()) {
