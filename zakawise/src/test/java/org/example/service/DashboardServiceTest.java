@@ -37,7 +37,7 @@ class DashboardServiceTest {
         when(repo.findByUserUserIdAndDeletedFalse("1"))
                 .thenReturn(List.of(income, expense));
 
-        Map<String, Double> result = service.getSummary();
+        Map<String, Double> result = service.getSummary("1");
 
         assertEquals(1000.0, result.get("income"));
         assertEquals(300.0, result.get("expense"));

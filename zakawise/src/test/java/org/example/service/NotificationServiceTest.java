@@ -33,6 +33,7 @@ class NotificationServiceTest {
         Notification result = service.send(user, "Hello");
 
         assertNotNull(result);
+
         verify(repo).save(any(Notification.class));
     }
 
@@ -42,7 +43,7 @@ class NotificationServiceTest {
         when(repo.findByUserUserId("1"))
                 .thenReturn(List.of(new Notification()));
 
-        List<Notification> result = service.getAll();
+        List<Notification> result = service.getAllByUser("1");
 
         assertEquals(1, result.size());
     }
@@ -57,6 +58,7 @@ class NotificationServiceTest {
         Notification result = service.markRead("1");
 
         assertEquals("READ", result.getStatus());
+
         verify(repo).save(n);
     }
 }

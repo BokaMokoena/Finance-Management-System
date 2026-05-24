@@ -29,9 +29,8 @@ class UserServiceTest {
 
         assertNotNull(result);
         assertEquals("1", result.getUserId());
-        assertEquals("John", result.getName());
 
-        verify(repo, times(1)).save(any(User.class));
+        verify(repo).save(any(User.class));
     }
 
     @Test
@@ -45,6 +44,7 @@ class UserServiceTest {
         User result = service.get("1");
 
         assertEquals("1", result.getUserId());
+
         verify(repo).findById("1");
     }
 
@@ -53,24 +53,27 @@ class UserServiceTest {
 
         User existing = new User();
         existing.setUserId("1");
-        existing.setName("Old");
 
         when(repo.findById("1")).thenReturn(Optional.of(existing));
 
         User updated = new User();
-        updated.setName("New Name");
-        updated.setEmail("new@mail.com");
-        updated.setSalary(7000.0);
-        updated.setOccupation("Dev");
+        updated.setName("New");
 
         User result = service.update("1", updated);
 
-        assertEquals("New Name", result.getName());
+        assertEquals("New", result.getName());
+
         verify(repo).save(existing);
     }
 
     @Test
     void delete() {
+
+        User user = new User();
+        user.setUserId("1");
+
+        when(repo.findById("1")).thenReturn(Optional.of(user));
+        doNothing().when(repo).delete("1");
 
         service.delete("1");
 

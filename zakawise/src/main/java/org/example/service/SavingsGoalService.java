@@ -66,6 +66,10 @@ public class SavingsGoalService {
         return repo.findAll();
     }
 
+    public List<SavingsGoal> getUserGoals(String userId) {
+        return repo.findByUserUserId(userId);
+    }
+
     public void delete(Long id) {
 
         if (!repo.findById(id).isPresent()) {

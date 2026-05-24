@@ -56,6 +56,46 @@ I selected Dependency Injection (DI) as the primary pattern for managing reposit
 - Spring Boot manages the instantiation of repository beans and injects them into services
 - Repositories can be swapped without changing service code.
 
+
+---
+## Assignment 13
+
+# How to Run the Project Locally
+
+## 1. Clone Repositor
+
+- git clone https://github.com/BokaMokoena/Finance-Management-System.git
+- cd Finance-Management-System/zakawise
+- mvn clean install
+- mvn spring-boot:run
+- mvn test
+
+## CI/CD PIPELINE (GitHub Actions)
+
+## Continuous Integration (CI)
+
+Triggered on:
+
+- Push to any branch
+- Pull requests to main
+
+CI pipeline:
+
+- Sets up Java environment (JDK 17)
+- Builds the project using Maven
+- Runs all unit tests
+
+## Continuous Deployment (CD)
+
+Triggered only when code is merged into main.
+
+CD pipeline:
+
+- Builds the Spring Boot JAR file
+- Skips tests (after CI validation)
+- Uploads .jar file as a GitHub Actions artifact
+
+
 ## Project Documents
 
 - [System Specification](Specification.md)

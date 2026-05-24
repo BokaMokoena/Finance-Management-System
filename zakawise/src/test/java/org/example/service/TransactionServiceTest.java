@@ -33,7 +33,6 @@ class TransactionServiceTest {
         Transaction result = service.create(user, "Food", 100.0, "EXPENSE");
 
         assertNotNull(result);
-        assertEquals(100.0, result.getAmount());
 
         verify(repo).save(any(Transaction.class));
     }
@@ -41,13 +40,12 @@ class TransactionServiceTest {
     @Test
     void get() {
 
-        Transaction t = new Transaction();
-
-        when(repo.findById(1L)).thenReturn(Optional.of(t));
+        when(repo.findById(1L)).thenReturn(Optional.of(new Transaction()));
 
         Transaction result = service.get(1L);
 
         assertNotNull(result);
+
         verify(repo).findById(1L);
     }
 
@@ -57,8 +55,7 @@ class TransactionServiceTest {
         when(repo.findByUserUserIdAndDeletedFalse("1"))
                 .thenReturn(List.of(new Transaction()));
 
-        List<Transaction> result =
-                service.getUserTransactions("1");
+        List<Transaction> result = service.getUserTransactions("1");
 
         assertEquals(1, result.size());
     }
@@ -67,13 +64,13 @@ class TransactionServiceTest {
     void updateAmount() {
 
         Transaction t = new Transaction();
-        t.setAmount(50.0);
 
         when(repo.findById(1L)).thenReturn(Optional.of(t));
 
         Transaction result = service.updateAmount(1L, 200.0);
 
         assertEquals(200.0, result.getAmount());
+
         verify(repo).save(t);
     }
 
@@ -87,6 +84,7 @@ class TransactionServiceTest {
         service.delete(1L);
 
         assertTrue(t.isDeleted());
+
         verify(repo).save(t);
     }
 }

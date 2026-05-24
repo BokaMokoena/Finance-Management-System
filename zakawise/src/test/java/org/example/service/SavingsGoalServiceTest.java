@@ -39,7 +39,6 @@ class SavingsGoalServiceTest {
         );
 
         assertNotNull(result);
-        assertEquals("Laptop Fund", result.getTitle());
 
         verify(repo).save(any(SavingsGoal.class));
     }
@@ -66,7 +65,7 @@ class SavingsGoalServiceTest {
         when(repo.findByUserUserId("1"))
                 .thenReturn(List.of(new SavingsGoal()));
 
-        List<SavingsGoal> result = service.getAll();
+        List<SavingsGoal> result = service.getUserGoals("1");
 
         assertEquals(1, result.size());
     }

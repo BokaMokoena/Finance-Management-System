@@ -17,9 +17,10 @@ public class DashboardService {
         this.repo = repo;
     }
 
-    public Map<String, Double> getSummary() {
+    public Map<String, Double> getSummary(String userId) {
 
-        List<Transaction> transactions = repo.findAll();
+        List<Transaction> transactions =
+                repo.findByUserUserIdAndDeletedFalse(userId);
 
         if (transactions.isEmpty()) {
             throw new RuntimeException("No transactions found for dashboard");
