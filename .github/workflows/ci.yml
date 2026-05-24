@@ -25,12 +25,16 @@ jobs:
         with:
           path: ~/.m2
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-m2-
 
-      - name: Show directory structure
+      - name: Show project structure
         run: ls -R
 
       - name: Build and Test
         run: mvn clean test
+        working-directory: zakawise
+
 
   build-artifact:
     needs: build-and-test
@@ -49,9 +53,10 @@ jobs:
 
       - name: Build JAR
         run: mvn clean package -DskipTests
+        working-directory: zakawise
 
       - name: Upload JAR Artifact
         uses: actions/upload-artifact@v4
         with:
           name: finance-management-jar
-          path: target/*.jar
+          path: zakawise/target/*.jar
