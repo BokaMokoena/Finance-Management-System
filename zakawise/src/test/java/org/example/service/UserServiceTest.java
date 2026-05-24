@@ -69,6 +69,10 @@ class UserServiceTest {
     @Test
     void delete() {
 
+        User user = new User();
+        user.setUserId("1");
+
+        when(repo.findById("1")).thenReturn(Optional.of(user));
         doNothing().when(repo).delete("1");
 
         service.delete("1");

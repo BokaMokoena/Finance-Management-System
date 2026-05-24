@@ -48,6 +48,7 @@ class SavingsGoalServiceTest {
 
         SavingsGoal goal = new SavingsGoal();
         goal.setCurrentAmount(1000.0);
+        goal.setTargetAmount(2000.0);
 
         when(repo.findById(1L)).thenReturn(Optional.of(goal));
 
@@ -64,7 +65,7 @@ class SavingsGoalServiceTest {
         when(repo.findByUserUserId("1"))
                 .thenReturn(List.of(new SavingsGoal()));
 
-        List<SavingsGoal> result = service.getAll();
+        List<SavingsGoal> result = service.getUserGoals("1");
 
         assertEquals(1, result.size());
     }
