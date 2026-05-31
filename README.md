@@ -95,6 +95,66 @@ CD pipeline:
 - Skips tests (after CI validation)
 - Uploads .jar file as a GitHub Actions artifact
 
+## Assignment 14
+## Getting Started
+
+### Requirements to access the system
+
+* Java 17
+* Maven 3.8+
+* Git
+
+### Installation
+
+Clone the repository:
+
+```bash
+git https://github.com/BokaMokoena/Finance-Management-System.git
+```
+
+Navigate to the project directory:
+
+```bash
+cd Finance-Management-System/zakawise
+```
+
+Install dependencies:
+
+```bash
+mvn clean install
+```
+
+Run the application:
+
+```bash
+mvn spring-boot:run
+```
+
+### Running Tests
+
+```bash
+mvn test
+```
+
+## Features for Contribution
+
+| Feature                 | Description                     | Difficulty   |
+| ----------------------- | ------------------------------- | ------------ |
+| Transaction Export      | Export transactions to CSV/PDF  | Beginner     |
+| Savings Goal Alerts     | Email reminders for goals       | Intermediate |
+| Analytics Dashboard     | Financial visualizations        | Intermediate |
+| User Profile Management | Update account details          | Beginner     |
+| Multi-Currency Support  | Handle multiple currencies      | Advanced     |
+| Redis Caching           | Improve application performance | Advanced     |
+
+## CI/CD
+
+The project uses GitHub Actions to:
+
+* Run automated tests on every push and pull request.
+* Build the application automatically.
+* Generate deployable artifacts on successful builds.
+
 
 ## Project Documents
 
